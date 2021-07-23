@@ -15,7 +15,7 @@ export default new Vuex.Store({
   },
 
   getters: {
-    saleProducts: state => {
+    saleProducts: (state) => {
       var saleProducts = state.products.map((product) => {
         return {
           name: "**" + product.name + "**",
@@ -26,13 +26,19 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    reducePrice: state =>{
+    reducePrice: (state, payload) => {
       state.products.forEach((product) => {
-        product.price -= 1;
+        product.price -= payload;
       });
+    },
+  },
+  actions: {
+    reducePrice: (context, payload) => {
+      setTimeout(function () {
+        context.commit('reducePrice',payload);
+      },2000)
     }
   },
-  actions: {},
   modules: {},
 });
 
